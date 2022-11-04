@@ -1,0 +1,6 @@
+[submodule "nipt-web"]
+	path = nipt-web
+	url = https://mf-clspprt.backlog.com/git/NIPT/nipt-web.git
+[submodule "nipt-admin"]
+	path = nipt-admin
+	url = https://mf-clspprt.backlog.com/git/NIPT/nipt-admin.git

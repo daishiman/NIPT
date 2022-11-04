@@ -1,0 +1,64 @@
+# docker compose verison
+version: '3'
+
+# コンテナ一覧
+services:
+  # 患者様側(パブリック) web app
+  webapp:
+    container_name: ${PROJECT_NAME}-web-app
+    build: ./docker/nipt-web-app
+    ports:
+      - ${WEB_PORT}:80
+    # マウント
+    volumes:
+      - ./nipt-web:/var/www/html/
+      - ./log/php/${PROJECT_NAME}-web-php:/var/log/php
+    # 環境変数
+    environment:
+      - APP_ENV=${APP_ENV:-local}
+      - APP_URL=${APP_URL:-http://localhost}
+      - DB_CONNECTION=${DB_CONNECTION}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_USERNAME=${DB_USER:-phper}
+      - DB_PASSWORD=${DB_PASSWORD:-zaq12wsx}
+  # クリニック側(管理画面) web app
+  adminapp:
+    container_name: ${PROJECT_NAME}-admin-app
+    build: ./docker/nipt-admin-app
+    ports:
+      - ${ADMIN_PORT}:80
+    # マウント
+    volumes:
+      - ./nipt-admin:/var/www/html/
+      - ./log/php/${PROJECT_NAME}-admin-php:/var/log/php
+    # 環境変数
+    environment:
+      - APP_ENV=${APP_ENV:-local}
+      - APP_URL=${APP_URL:-http://localhost}
+      - DB_CONNECTION=${DB_CONNECTION}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_USERNAME=${DB_USER:-phper}
+      - DB_PASSWORD=${DB_PASSWORD:-zaq12wsx}
+  # postgres
+  postgres:
+    image: postgres:13.6
+    container_name: ${PROJECT_NAME}-postgres
+    ports:
+      - ${DB_PORT}:5432
+    # マウント
+    volumes:
+      - ./db/db-data:/var/lib/postgresql/data
+      - ./log/postgresql:/var/log
+    # 環境変数
+    environment:
+      - POSTGRES_DB=${DB_DATABASE}
+      - POSTGRES_USER=${DB_USER:-niptmaster}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-zaq12wsx}
+      - PGDATA=/var/lib/postgresql/data/pgdata
+      - POSTGRES_INITDB_ARGS='--encoding=UTF-8'
+    hostname: ${DB_HOST}
+    restart: always
