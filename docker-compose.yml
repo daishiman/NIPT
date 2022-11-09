@@ -19,7 +19,7 @@ services:
       - APP_URL=${APP_URL:-http://localhost}
       - DB_CONNECTION=${DB_CONNECTION}
       - DB_HOST=${DB_HOST}
-      - DB_PORT=${DB_PORT}
+      - DB_PORT=5432
       - DB_DATABASE=${DB_DATABASE}
       - DB_USERNAME=${DB_USERNAME:-phper}
       - DB_PASSWORD=${DB_PASSWORD:-zaq12wsx}
@@ -39,7 +39,7 @@ services:
       - APP_URL=${APP_URL:-http://localhost}
       - DB_CONNECTION=${DB_CONNECTION}
       - DB_HOST=${DB_HOST}
-      - DB_PORT=${DB_PORT}
+      - DB_PORT=5432
       - DB_DATABASE=${DB_DATABASE}
       - DB_USERNAME=${DB_USERNAME:-phper}
       - DB_PASSWORD=${DB_PASSWORD:-zaq12wsx}
