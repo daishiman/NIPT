@@ -51,7 +51,7 @@ services:
       - ${DB_PORT}:5432
     # マウント
     volumes:
-      - ./db/db-data:/var/lib/postgresql
+      - ./db/db-data:/var/lib/postgresql/data
       - ./log/postgresql:/var/log
     # 環境変数
     environment:

@@ -121,7 +121,7 @@ docker-compose exec webapp sh -c 'cd /var/www/public/nipt && npm run dev'
 
 ```bash
 #マイグレーション実行
-docker compose exec webapp sh -c "cd /var/www/html && php artisan migrate:refresh --seed"
+docker compose exec adminapp sh -c "cd /var/www/html && php artisan migrate:refresh --seed"
 ```
 
 ## コンテナ構造
