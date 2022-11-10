@@ -15,8 +15,8 @@ docker-compose exec webapp sh -c "cd $PROJECT_DIR && npm run build"
 docker-compose exec adminapp sh -c "cd $PROJECT_DIR && composer install"
 docker-compose exec adminapp sh -c "chmod 777 -R $PROJECT_DIR/bootstrap/cache"
 docker-compose exec adminapp sh -c "chmod 777 -R $PROJECT_DIR/storage"
-# migrate seederできたら
-# docker-compose exec adminapp sh -c "cd $PROJECT_DIR && php artisan migrate"
+docker-compose exec adminapp sh -c "cd $PROJECT_DIR && php artisan migrate"
+# seederできたら
 # docker-compose exec adminapp sh -c "cd $PROJECT_DIR && php artisan db:seed"
 docker-compose exec adminapp sh -c "cd $PROJECT_DIR && npm install"
 docker-compose exec adminapp sh -c "cd $PROJECT_DIR && npm run build"

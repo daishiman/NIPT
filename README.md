@@ -41,23 +41,33 @@
 - UX Teamとのgithub取り込み(必要に応じて)
 
 #### git cloneする
-```git
-git clone mf-clspprt@mf-clspprt.git.backlog.com:/BC_KRT/bc_krt.git
-```
 
+#### git clone まえに... windows：
+git clone 先のディレクトリ について wsl2の先に cloneをお願いします  
+[こちらのプロジェクト](https://mf-clspprt.backlog.com/git/BC_KRT/bc_krt/tree/develop)を参考にした場合は
+```text
+\\wsl$\Ubuntu-バージョン(例:20.04)\home\ユーザー名
+```
+があるので、この下に作成した任意のディレクトリを作成し cloneしてください。
+
+#### git clone コマンド：
+```git
+git clone --recursive mf-clspprt@mf-clspprt.backlog.com/git/NIPT/nipt.git 
+```
+"--recursive"：サブモジュールも一緒にクローン を忘れずに
 
 #### コンテナ立ち上げ
+nipt、nipt-admin, nipt-web配下の  
+.env.exampleを.envというファイル名にコピー  
 
 ```bash
-cd プロジェクトパス
+cd nipt プロジェクトパス
 docker-compose build
 docker-compose up -d
 ```
 
 #### セットアップ・動作確認 
 TODO：今後記載します。
-
-.env.exampleを.envというファイル名にコピー  
 
 
 ```shell
