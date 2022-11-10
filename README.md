@@ -1,8 +1,14 @@
 # README <!-- omit in toc -->
 - [開発環境構築手順](#開発環境構築手順)
   - [前提ツールのインストール](#前提ツールのインストール)
-    - [プロジェクトの環境構築:前提](#プロジェクトの環境構築:前提)
-    - [プロジェクトの環境構築:本プロジェクト](#プロジェクトの環境構築:本プロジェクト)
+  - [git cloneする](#git-cloneする)
+  - [.envファイルの追加](#envファイルの追加)
+  - [コンテナ立ち上げ](#コンテナ立ち上げ)
+    - [セットアップ・動作確認](#セットアップ動作確認)
+  - [command memo](#command-memo)
+  - [コンテナ構造](#コンテナ構造)
+  - [Gitプロジェクト構造](#gitプロジェクト構造)
+    - [submod](#submod)
 
     - [Docker Desktop on Windows のインストール](#docker-desktop-on-windows-のインストール)
     - [wsl2 のインストール](#wsl2-のインストール)
@@ -17,13 +23,14 @@
 - [コンテナ構造](#コンテナ構造)
 - [Gitプロジェクト構造](#Gitプロジェクト構造)
 
-## 開発環境構築手順
+# 開発環境構築手順
 
-### 前提ツールのインストール
+## 前提ツールのインストール
 
 インストール済みの項目は適宜スキップしてください。
 
-#### プロジェクトの環境構築:前提
+「プロジェクトの環境構築 : 前提」
+
 基本的には [こちらのプロジェクト](https://mf-clspprt.backlog.com/git/BC_KRT/bc_krt/tree/develop)を参考に作成します。  
 実施事項としては READMEに記載されている 下記の内容の構築をしてください。  
 - Docker Desktop on Windows のインストール
@@ -31,34 +38,41 @@
 - git for windows のインストール
 - backlog/git
 
-#### プロジェクトの環境構築:本プロジェクト
-[プロジェクトの環境構築:前提](#プロジェクトの環境構築:前提)を完了してからこちらの構築をしてください。
-
-構築すること:
+「プロジェクトの環境構築 : 本プロジェクト」
+構築すること
 - [git clone](#git-clone)
 - [コンテナ立ち上げ](#コンテナ立ち上げ)
 - [セットアップ コマンド実行・動作確認](#セットアップ・動作確認)
 - UX Teamとのgithub取り込み(必要に応じて)
 
-#### git cloneする
+## git cloneする
 
-#### git clone まえに... windows：
-git clone 先のディレクトリ について wsl2の先に cloneをお願いします  
-[こちらのプロジェクト](https://mf-clspprt.backlog.com/git/BC_KRT/bc_krt/tree/develop)を参考にした場合は
-```text
-\\wsl$\Ubuntu-バージョン(例:20.04)\home\ユーザー名
+クローン場所
+
 ```
-があるので、この下に作成した任意のディレクトリを作成し cloneしてください。
-
-#### git clone コマンド：
-```git
-git clone --recursive mf-clspprt@mf-clspprt.backlog.com/git/NIPT/nipt.git 
+\\wsl$\Ubuntu-20.04\usr\src
 ```
-"--recursive"：サブモジュールも一緒にクローン を忘れずに
 
-#### コンテナ立ち上げ
-nipt、nipt-admin, nipt-web配下の  
-.env.exampleを.envというファイル名にコピー  
+コマンド
+
+```
+git clone --recursive mf-clspprt@mf-clspprt.git.backlog.com:/NIPT/nipt.git
+```
+
+※ "--recursive"をつけると、サブモジュールも一緒にクローンできる
+
+
+## .envファイルの追加
+
+[こちら](https://drive.google.com/drive/folders/1itTLI1XY-k4gNDeQ7sddsj91NfP7Gu00)から.env_for_localをダウンロードしてください。（nipt-admin,nipt-webのフォルダ内の.env_for_localもダウンロードする）
+
+先程クローンしたniptフォルダ配下に.env_for_localを入れてください。
+nipt-adminからダウンロードした.env_for_localファイルはnipt-adminフォルダ配下に設置してください。
+
+.env_for_localの名前を.envに変更してください。
+## コンテナ立ち上げ
+nipt-admin, nipt-web配下の
+.env.exampleを.envというファイル名に変更
 
 ```bash
 cd nipt プロジェクトパス
@@ -66,7 +80,7 @@ docker-compose build
 docker-compose up -d
 ```
 
-#### セットアップ・動作確認 
+### セットアップ・動作確認 
 TODO：今後記載します。
 
 
@@ -78,17 +92,17 @@ bash setup.sh
 ここまで終了したら、以下で表示可能。
 
 ```bash
-患者様側: <http://localhost:8080/>  
-管理画面: <http://localhost:8181/>  
+患者様側: <http://localhost:8080/>
+管理画面: <http://localhost:8181/>（現在使用していない）
 ```
 
 
-### command memo
+## command memo
 
 ```bash
 # コンテナへの接続 docker exec
 # php
-docker-compose exec web bash
+docker-compose exec webapp bash
 # hostにservices名指定でdbに接続
 psql -h postgres -U root -d postgres
 
@@ -99,9 +113,9 @@ psql -h postgres -U root -d postgres
 
 ```bash
 #Laravel vite コンパイル実行 新規ファイルの認識,作成
-docker-compose exec web sh -c 'cd /var/www/public/bc_krt && npm run build'
+docker-compose exec webapp sh -c 'cd /var/www/public/nipt && npm run build'
 #Laravel vite コンパイル実行 rollupのwatch
-docker-compose exec web sh -c 'cd /var/www/public/bc_krt && npm run dev'
+docker-compose exec webapp sh -c 'cd /var/www/public/nipt && npm run dev'
 ```
 
 ## コンテナ構造
