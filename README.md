@@ -8,7 +8,7 @@
   - [command memo](#command-memo)
   - [コンテナ構造](#コンテナ構造)
   - [Gitプロジェクト構造](#gitプロジェクト構造)
-    - [submod](#submod)
+  - [サブモジュールを変更した際のコミットとプッシュについて](#サブモジュールを変更した際のコミットとプッシュについて)
 
     - [Docker Desktop on Windows のインストール](#docker-desktop-on-windows-のインストール)
     - [wsl2 のインストール](#wsl2-のインストール)
@@ -133,4 +133,13 @@ docker-compose exec webapp sh -c 'cd /var/www/public/nipt && npm run dev'
 └── nipt-admin (クリニック側管理画面 WEB APP git project)
 ```
 
-### submod
+## サブモジュールを変更した際のコミットとプッシュについて
+
+- 以下の設定をしないとコミットとプッシュができないっぽい
+
+エラー内容：make sure you configure your "user.name" and "user.email" in git
+
+```
+git config --global user.name "ユーザー名"
+git config --global user.email "メールアドレス"
+```
