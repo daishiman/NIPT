@@ -4,7 +4,8 @@
   - [git cloneする](#git-cloneする)
   - [.envファイルの追加](#envファイルの追加)
   - [コンテナ立ち上げ](#コンテナ立ち上げ)
-    - [セットアップ・動作確認](#セットアップ動作確認)
+  - [セットアップ](#セットアップ)
+  - [A5:Mk-2でのDB接続情報](#a5mk-2でのdb接続情報)
   - [command memo](#command-memo)
   - [コンテナ構造](#コンテナ構造)
   - [Gitプロジェクト構造](#gitプロジェクト構造)
@@ -80,9 +81,7 @@ docker-compose build
 docker-compose up -d
 ```
 
-### セットアップ・動作確認 
-TODO：今後記載します。
-
+## セットアップ
 
 ```shell
 # PowerShell
@@ -96,6 +95,8 @@ bash setup.sh
 管理画面: <http://localhost:8181/>（現在使用していない）
 ```
 
+## A5:Mk-2でのDB接続情報
+[こちら](https://drive.google.com/drive/folders/12wf-V1eRQvKGp-xZSDjnKK9DmO-5vM_o)を参照してください。
 
 ## command memo
 
@@ -116,6 +117,11 @@ psql -h postgres -U root -d postgres
 docker-compose exec webapp sh -c 'cd /var/www/public/nipt && npm run build'
 #Laravel vite コンパイル実行 rollupのwatch
 docker-compose exec webapp sh -c 'cd /var/www/public/nipt && npm run dev'
+```
+
+```bash
+#マイグレーション実行
+docker compose exec webapp sh -c "cd /var/www/html && php artisan migrate:refresh --seed"
 ```
 
 ## コンテナ構造
