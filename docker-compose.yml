@@ -13,6 +13,10 @@ services:
     volumes:
       - ./nipt-web:/var/www/html/
       - ./log/php/${PROJECT_NAME}-web-php:/var/log/php
+      # リモートデバッグ用
+      - ./docker/nipt-web-app/docker-php-ext-xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     # 環境変数
     environment:
       - APP_ENV=${APP_ENV:-local}
