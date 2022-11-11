@@ -92,7 +92,7 @@ bash setup.sh
 
 ```bash
 患者様側: <http://localhost:8080/>
-管理画面: <http://localhost:8181/>（現在使用していない）
+管理画面: <http://localhost:4848/>（現在使用していない）
 ```
 
 ## A5:Mk-2でのDB接続情報
